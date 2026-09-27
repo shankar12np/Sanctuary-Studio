@@ -1,0 +1,113 @@
+.page-header {
+  text-align: center;
+  padding: 56px 24px 24px;
+  max-width: 600px;
+  margin: 0 auto;
+
+  h1 { font-size: 32px; margin-bottom: 12px; }
+  p { color: var(--ink-muted); }
+}
+
+.admissions-layout {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.contact-quick {
+  flex: 1;
+  min-width: 240px;
+  background: var(--brand-teal);
+  color: white;
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  height: fit-content;
+
+  h2 { font-size: 18px; margin-bottom: 16px; }
+
+  .whatsapp-btn {
+    display: block;
+    text-align: center;
+    background: white;
+    color: var(--brand-teal-ink);
+    padding: 12px;
+    border-radius: var(--radius-pill);
+    text-decoration: none;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  .phone {
+    font-size: 14px;
+    opacity: 0.9;
+  }
+}
+
+.inquiry-form {
+  flex: 2;
+  min-width: 280px;
+  background: var(--surface-0);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  input, textarea {
+    font-family: var(--font-sans);
+    font-size: 15px;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--surface-100);
+    color: var(--ink);
+
+    &:focus {
+      outline: none;
+      border-color: var(--brand-coral);
+    }
+  }
+
+  .form-error {
+    color: #B84A28;
+    font-size: 14px;
+    margin: 0;
+  }
+
+  .btn-primary {
+    background: var(--brand-coral);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: var(--radius-pill);
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+    align-self: flex-start;
+  }
+}
+
+.success-message {
+  flex: 2;
+  min-width: 280px;
+  background: var(--surface-0);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 40px;
+  text-align: center;
+
+  h2 { color: var(--brand-teal); margin-bottom: 8px; }
+}

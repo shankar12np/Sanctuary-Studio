@@ -1,0 +1,16 @@
+<header class="navbar">
+  <a routerLink="/" class="logo">
+    <img src="images/sanctuary-studio-mark.svg" alt="Sanctuary Studio" height="32">
+    Sanctuary Studio
+  </a>
+  <button class="menu-toggle" (click)="toggleMenu()" aria-label="Toggle menu">☰</button>
+
+  <nav class="links" [class.open]="menuOpen">
+    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="closeMenu()">Home</a>
+    <a routerLink="/about" routerLinkActive="active" (click)="closeMenu()">About</a>
+    <a routerLink="/programs" routerLinkActive="active" (click)="closeMenu()">Programs</a>
+    <a routerLink="/gallery" routerLinkActive="active" (click)="closeMenu()">Gallery</a>
+    <a routerLink="/admissions" routerLinkActive="active" class="cta" (click)="closeMenu()">Admissions</a>
+    <a routerLink="/contact" routerLinkActive="active" (click)="closeMenu()">Contact</a>
+  </nav>
+</header>

@@ -1,1 +1,36 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --surface-100: #FBF6EC;
+  --surface-0: #FFFFFF;
+  --ink: #2B2118;
+  --ink-muted: #6B5D4F;
+  --border: #E9DECB;
+  --brand-coral: #E8663D;
+  --brand-coral-ink: #8A3A1E;
+  --brand-yellow: #F5B942;
+  --brand-yellow-ink: #7A4E0B;
+  --brand-teal: #2A9D8F;
+  --brand-teal-ink: #0F4A42;
+
+  --font-heading: 'Baloo 2', system-ui, sans-serif;
+  --font-sans: 'Nunito', system-ui, sans-serif;
+
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background: var(--surface-100);
+  color: var(--ink);
+}
+
+h1, h2, h3 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  margin: 0;
+}

@@ -1,0 +1,17 @@
+<section class="login-page">
+  <form class="login-form" (ngSubmit)="onSubmit()">
+    <h1>Admin login</h1>
+    <label>
+      Email
+      <input type="email" name="email" [(ngModel)]="email" required>
+    </label>
+    <label>
+      Password
+      <input type="password" name="password" [(ngModel)]="password" required>
+    </label>
+    <p class="form-error" *ngIf="error">{{ error }}</p>
+    <button type="submit" class="btn-primary" [disabled]="loading">
+      {{ loading ? 'Signing in…' : 'Sign in' }}
+    </button>
+  </form>
+</section>

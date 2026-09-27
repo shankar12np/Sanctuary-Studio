@@ -1,0 +1,35 @@
+<section class="page-header">
+  <h1>Gallery</h1>
+  <p>A look inside Sanctuary Studio — our classrooms, activities, and the everyday moments in between.</p>
+</section>
+
+<section class="gallery-section">
+  <h2>Our Studio</h2>
+  <div class="gallery-grid">
+    @for (photo of photos; track photo.src) {
+    <div class="photo-tile">
+      <img [src]="photo.src" [alt]="photo.alt" loading="lazy">
+    </div>
+    }
+  </div>
+</section>
+
+<section class="gallery-section">
+  <h2>Recent Activities</h2>
+  @if (recentPhotos$ | async; as recentPhotos) {
+  @if (recentPhotos.length === 0) {
+  <p class="empty-state">Check back soon — we'll be sharing photos from daily activities here.</p>
+  } @else {
+  <div class="gallery-grid">
+    @for (photo of recentPhotos; track photo.id) {
+    <div class="photo-tile">
+      <img [src]="photo.url" [alt]="photo.caption || 'Sanctuary Studio activity'" loading="lazy">
+      @if (photo.caption) {
+      <p class="photo-caption">{{ photo.caption }}</p>
+      }
+    </div>
+    }
+  </div>
+  }
+  }
+</section>

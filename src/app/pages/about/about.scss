@@ -1,0 +1,64 @@
+.page-header {
+  text-align: center;
+  padding: 56px 24px 24px;
+  max-width: 640px;
+  margin: 0 auto;
+
+  h1 { font-size: 32px; margin-bottom: 12px; }
+  p { color: var(--ink-muted); font-size: 16px; }
+}
+
+.mission {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 24px;
+
+  h2 { font-size: 22px; margin-bottom: 16px; }
+
+  p {
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+}
+
+.values {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  max-width: 900px;
+  margin: 32px auto;
+  padding: 0 24px;
+  justify-content: center;
+}
+
+.value-card {
+  background: var(--surface-0);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  flex: 1;
+  min-width: 220px;
+  max-width: 280px;
+
+  h3 {
+    font-family: var(--font-heading);
+    color: var(--brand-coral);
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+
+  p {
+    color: var(--ink-muted);
+    font-size: 14px;
+  }
+}
+
+.team {
+  text-align: center;
+  padding: 48px 24px 64px;
+
+  h2 { font-size: 22px; margin-bottom: 8px; }
+  .team-note { color: var(--ink-muted); font-size: 15px; }
+}

@@ -1,0 +1,52 @@
+<section class="page-header">
+  <h1>Admissions</h1>
+  <p>Tell us a bit about your child, and we'll get back to you to arrange a visit.</p>
+</section>
+
+<section class="admissions-layout">
+  <div class="contact-quick">
+    <h2>Prefer to talk directly?</h2>
+    <a href="https://wa.me/977XXXXXXXXX" target="_blank" class="whatsapp-btn">
+      Message us on WhatsApp
+    </a>
+    <p class="phone">Or call: +977-XXX-XXXXXXX</p>
+  </div>
+
+  <form class="inquiry-form" (ngSubmit)="onSubmit()" *ngIf="!submitted">
+    <label>
+      Your name
+      <input type="text" name="name" [(ngModel)]="name" required>
+    </label>
+
+    <label>
+      Child's age / grade
+      <input type="text" name="childAge" [(ngModel)]="childAge" placeholder="e.g. 6 years old, entering Grade 1">
+    </label>
+
+    <label>
+      Phone number
+      <input type="tel" name="phone" [(ngModel)]="phone" required>
+    </label>
+
+    <label>
+      Email (optional)
+      <input type="email" name="email" [(ngModel)]="email">
+    </label>
+
+    <label>
+      Message
+      <textarea name="message" rows="4" [(ngModel)]="message" placeholder="Anything you'd like us to know"></textarea>
+    </label>
+
+    <p class="form-error" *ngIf="error">{{ error }}</p>
+
+    <button type="submit" class="btn-primary" [disabled]="submitting">
+      {{ submitting ? 'Sending…' : 'Send inquiry' }}
+    </button>
+  </form>
+
+  <div class="success-message" *ngIf="submitted">
+    <h2>Thank you!</h2>
+    <p>We've received your inquiry and will contact you soon.</p>
+  </div>
+</section>

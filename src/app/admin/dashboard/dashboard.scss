@@ -1,0 +1,150 @@
+.dashboard {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 24px;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+
+  h1 { font-size: 26px; }
+}
+
+.logout-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  padding: 8px 18px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.empty-state {
+  color: var(--ink-muted);
+  text-align: center;
+  padding: 40px;
+}
+
+.inquiry-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.inquiry-card {
+  background: var(--surface-0);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 20px;
+
+  .inquiry-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 8px;
+
+    h3 { font-size: 17px; margin: 0; }
+    .date { font-size: 13px; color: var(--ink-muted); }
+  }
+
+  p {
+    font-size: 14px;
+    color: var(--ink);
+    margin: 4px 0;
+  }
+
+  .message {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid var(--border);
+  }
+}
+
+.section-divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 40px 0;
+}
+
+.photo-upload-form {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 20px;
+
+  input[type="text"] {
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    flex: 1;
+    min-width: 180px;
+  }
+
+  button {
+    background: var(--brand-coral);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: var(--radius-sm);
+    font-weight: 700;
+    cursor: pointer;
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
+}
+
+.error-text {
+  color: var(--brand-coral-ink);
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 16px;
+}
+
+.photo-card {
+  background: var(--surface-0);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    display: block;
+  }
+
+  .photo-caption {
+    font-size: 13px;
+    color: var(--ink-muted);
+    padding: 8px 10px 0;
+    margin: 0;
+  }
+
+  .delete-btn {
+    display: block;
+    width: 100%;
+    background: none;
+    border: none;
+    color: var(--brand-coral-ink);
+    font-size: 13px;
+    padding: 8px 10px;
+    cursor: pointer;
+    text-align: center;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

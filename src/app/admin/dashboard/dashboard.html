@@ -1,0 +1,79 @@
+<section class="dashboard">
+  <header class="dashboard-header">
+    <h1>Admissions inquiries</h1>
+    <button (click)="logout()" class="logout-btn">Log out</button>
+  </header>
+
+  @if (inquiries$ | async; as inquiries) {
+  @if (inquiries.length === 0) {
+  <p class="empty-state">No inquiries yet — they'll show up here as parents submit the Admissions form.</p>
+  } @else {
+  <div class="inquiry-list">
+    @for (inquiry of inquiries; track inquiry.id) {
+    <div class="inquiry-card">
+      <div class="inquiry-top">
+        <h3>{{ inquiry.name }}</h3>
+        <span class="date">{{ inquiry.createdAt?.toDate() | date:'MMM d, y, h:mm a' }}</span>
+      </div>
+      <p><strong>Child:</strong> {{ inquiry.childAge || '—' }}</p>
+      <p><strong>Phone:</strong> {{ inquiry.phone }}</p>
+      @if (inquiry.email) {
+      <p><strong>Email:</strong> {{ inquiry.email }}</p>
+      }
+      @if (inquiry.message) {
+      <p class="message"><strong>Message:</strong> {{ inquiry.message }}</p>
+      }
+    </div>
+    }
+  </div>
+  }
+  } @else {
+  <p class="empty-state">Loading inquiries…</p>
+  }
+
+  <hr class="section-divider">
+
+  <header class="dashboard-header">
+    <h2>Activity photos</h2>
+  </header>
+
+  <form class="photo-upload-form" (ngSubmit)="uploadPhoto()">
+    <input
+      id="photo-file-input"
+      type="file"
+      accept="image/*"
+      (change)="onFileSelected($event)"
+    >
+    <input
+      type="text"
+      placeholder="Caption (optional)"
+      [(ngModel)]="caption"
+      name="caption"
+    >
+    <button type="submit" [disabled]="uploading">
+      {{ uploading ? 'Uploading…' : 'Upload photo' }}
+    </button>
+  </form>
+
+  @if (uploadError) {
+  <p class="error-text">{{ uploadError }}</p>
+  }
+
+  @if (photos$ | async; as photos) {
+  @if (photos.length === 0) {
+  <p class="empty-state">No activity photos yet — upload one above.</p>
+  } @else {
+  <div class="photo-grid">
+    @for (photo of photos; track photo.id) {
+    <div class="photo-card">
+      <img [src]="photo.url" [alt]="photo.caption || 'Sanctuary Studio activity'">
+      @if (photo.caption) {
+      <p class="photo-caption">{{ photo.caption }}</p>
+      }
+      <button class="delete-btn" (click)="deletePhoto(photo)">Remove</button>
+    </div>
+    }
+  </div>
+  }
+  }
+</section>
