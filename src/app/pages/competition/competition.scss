@@ -94,6 +94,11 @@
     font-size: 14px;
     line-height: 1.5;
   }
+
+  a {
+    color: var(--brand-gold-ink);
+    font-weight: 700;
+  }
 }
 
 .entry-form {
@@ -188,6 +193,11 @@
     font-size: 13px;
     color: var(--ink-muted);
     margin-bottom: 20px;
+
+    a {
+      color: var(--brand-green);
+      font-weight: 700;
+    }
   }
 
   .empty-state { color: var(--ink-muted); }

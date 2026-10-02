@@ -1,0 +1,44 @@
+<section class="page-header">
+  <h1>Writing Competition Archive</h1>
+  <p>Every entry submitted, organized by round.</p>
+</section>
+
+@if (rounds$ | async; as rounds) {
+@if (rounds.length === 0) {
+<section class="empty-state-section">
+  <p class="empty-state">No entries yet — once families start submitting, they'll appear here by round.</p>
+</section>
+} @else {
+<section class="round-tabs">
+  @for (round of rounds; track round.key) {
+  <button
+    class="round-tab"
+    [class.active]="round.key === selectedRound"
+    (click)="selectRound(round.key)">
+    {{ round.label }}
+    <span class="count">{{ round.entries.length }}</span>
+  </button>
+  }
+</section>
+
+@for (round of rounds; track round.key) {
+@if (round.key === selectedRound) {
+<section class="articles-list">
+  @for (entry of round.entries; track entry.id) {
+  <article class="article-card">
+    <div class="article-top">
+      <h2>{{ entry.childName }}</h2>
+      <span class="date">{{ entry.createdAt?.toDate() | date:'MMM d, y' }}</span>
+    </div>
+    <p class="article-meta">{{ entry.school }} &middot; {{ entry.grade }}</p>
+    @if (entry.writingTitle) {
+    <h3 class="article-title">"{{ entry.writingTitle }}"</h3>
+    }
+    <p class="article-text">{{ entry.writingText }}</p>
+  </article>
+  }
+</section>
+}
+}
+}
+}
