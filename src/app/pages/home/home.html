@@ -144,9 +144,14 @@
 
     <blockquote class="winner-excerpt">{{ excerpt(winner.writingText) }}</blockquote>
 
-    <a routerLink="/competition" class="btn-primary">
-      Read the Writing Competition
-    </a>
+    <div class="competition-card-links">
+      <a routerLink="/articles" class="btn-primary">
+        Read the full archive
+      </a>
+      <a routerLink="/competition" class="btn-secondary">
+        Enter the competition
+      </a>
+    </div>
   </div>
   } @else {
   <div class="competition-card">
@@ -160,9 +165,14 @@
       classroom.
     </p>
 
-    <a routerLink="/competition" class="btn-primary">
-      Learn how to participate
-    </a>
+    <div class="competition-card-links">
+      <a routerLink="/articles" class="btn-secondary">
+        Browse the archive
+      </a>
+      <a routerLink="/competition" class="btn-primary">
+        Learn how to participate
+      </a>
+    </div>
   </div>
   }
 </section>

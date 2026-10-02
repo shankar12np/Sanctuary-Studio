@@ -295,6 +295,14 @@ section h2 {
   }
 
   .btn-primary { background: var(--brand-gold-ink); color: var(--brand-gold); }
+  .btn-secondary { background: transparent; color: var(--brand-gold-ink); border: 2px solid var(--brand-gold-ink); }
+
+  .competition-card-links {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
 
   &.winner-card {
     .winner-meta {
