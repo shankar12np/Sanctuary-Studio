@@ -20,7 +20,7 @@
 .contact-quick {
   flex: 1;
   min-width: 240px;
-  background: var(--brand-teal);
+  background: var(--brand-green);
   color: white;
   border-radius: var(--radius-lg);
   padding: 28px;
@@ -32,7 +32,7 @@
     display: block;
     text-align: center;
     background: white;
-    color: var(--brand-teal-ink);
+    color: var(--brand-green);
     padding: 12px;
     border-radius: var(--radius-pill);
     text-decoration: none;
@@ -109,5 +109,5 @@
   padding: 40px;
   text-align: center;
 
-  h2 { color: var(--brand-teal); margin-bottom: 8px; }
+  h2 { color: var(--brand-green); margin-bottom: 8px; }
 }
