@@ -7,6 +7,7 @@ import {
   collection,
   collectionData,
   doc,
+  docData,
   orderBy,
   query,
   limit,
@@ -24,6 +25,16 @@ interface PublicEntry {
   createdAt: Timestamp;
 }
 
+interface LatestWinner {
+  entryId: string;
+  childName: string;
+  school: string;
+  grade: string;
+  writingTitle: string;
+  writingText: string;
+  announcedAt: Timestamp;
+}
+
 @Component({
   selector: 'app-competition',
   imports: [CommonModule, FormsModule],
@@ -35,6 +46,7 @@ export class Competition implements OnInit {
   private meta = inject(Meta);
 
   recentEntries$: Observable<PublicEntry[]>;
+  latestWinner$: Observable<LatestWinner | undefined>;
 
   childName = '';
   school = '';
@@ -53,6 +65,8 @@ export class Competition implements OnInit {
     const entriesRef = collection(this.firestore, 'competition_entries');
     const entriesQuery = query(entriesRef, orderBy('createdAt', 'desc'), limit(20));
     this.recentEntries$ = collectionData(entriesQuery, { idField: 'id' }) as Observable<PublicEntry[]>;
+
+    this.latestWinner$ = docData(doc(this.firestore, 'site_meta', 'latest_winner')) as Observable<LatestWinner | undefined>;
   }
 
   ngOnInit() {

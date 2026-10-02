@@ -8,6 +8,22 @@
   </p>
 </section>
 
+@if (latestWinner$ | async; as winner) {
+<section class="winner-spotlight">
+  <div class="winner-card">
+    <span class="badge">🏆 Latest winner</span>
+    <h2>{{ winner.childName }}</h2>
+    <p class="winner-meta">{{ winner.school }} &middot; {{ winner.grade }}</p>
+
+    @if (winner.writingTitle) {
+    <h3 class="winner-title">"{{ winner.writingTitle }}"</h3>
+    }
+
+    <p class="winner-text">{{ winner.writingText }}</p>
+  </div>
+</section>
+}
+
 <section class="competition-layout">
   <div class="rules-card">
     <h2>How it works</h2>
