@@ -61,6 +61,25 @@
     padding-top: 8px;
     border-top: 1px solid var(--border);
   }
+
+  .delete-btn {
+    margin-top: 10px;
+  }
+}
+
+.delete-btn {
+  display: inline-block;
+  background: none;
+  border: none;
+  color: var(--brand-green-ink);
+  font-size: 13px;
+  padding: 8px 0;
+  cursor: pointer;
+  text-align: center;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .section-divider {
@@ -135,16 +154,6 @@
   .delete-btn {
     display: block;
     width: 100%;
-    background: none;
-    border: none;
-    color: var(--brand-green-ink);
-    font-size: 13px;
     padding: 8px 10px;
-    cursor: pointer;
-    text-align: center;
-
-    &:hover {
-      text-decoration: underline;
-    }
   }
 }

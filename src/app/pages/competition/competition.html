@@ -1,0 +1,110 @@
+<section class="page-header">
+  <span class="badge">Every 6 months</span>
+  <h1>Kids' Writing Competition</h1>
+  <p>
+    Open to all students from Kindergarten to Middle School. Submit a piece
+    of writing for a chance to win <strong>NPR 1,000</strong>. Entries close
+    and winners are announced every 6 months.
+  </p>
+</section>
+
+<section class="competition-layout">
+  <div class="rules-card">
+    <h2>How it works</h2>
+    <ul>
+      <li>Open to children in Kindergarten through Middle School.</li>
+      <li>Write in your own words — it can be a story, a poem, or a short
+        essay on any topic.</li>
+      <li>A parent or guardian must submit the entry on the child's behalf,
+        with contact details so we can reach you if your child wins.</li>
+      <li>Entrant's name and school are shown publicly on this page once
+        submitted. Contact details are kept private and only visible to
+        Sanctuary Studio staff.</li>
+      <li>Winners are announced every 6 months and contacted directly.</li>
+    </ul>
+  </div>
+
+  <form class="entry-form" (ngSubmit)="onSubmit()" *ngIf="!submitted">
+    <h2>Submit an entry</h2>
+
+    <label>
+      Child's name
+      <input type="text" name="childName" [(ngModel)]="childName" required>
+    </label>
+
+    <label>
+      School
+      <input type="text" name="school" [(ngModel)]="school" required>
+    </label>
+
+    <label>
+      Grade / age group
+      <select name="grade" [(ngModel)]="grade" required>
+        <option value="" disabled selected>Select one</option>
+        <option value="Kindergarten">Kindergarten (Ages 4–5)</option>
+        <option value="Primary">Primary (Ages 6–10)</option>
+        <option value="Middle School">Middle School (Ages 11–13)</option>
+      </select>
+    </label>
+
+    <label>
+      Title (optional)
+      <input type="text" name="writingTitle" [(ngModel)]="writingTitle" placeholder="Give your entry a title">
+    </label>
+
+    <label>
+      Writing entry
+      <textarea name="writingText" rows="8" [(ngModel)]="writingText" placeholder="Paste or type the entry here" required></textarea>
+    </label>
+
+    <hr class="divider">
+
+    <p class="section-note">Parent / guardian details (kept private)</p>
+
+    <label>
+      Parent / guardian name
+      <input type="text" name="parentName" [(ngModel)]="parentName" required>
+    </label>
+
+    <label>
+      Phone number
+      <input type="tel" name="parentPhone" [(ngModel)]="parentPhone" required>
+    </label>
+
+    <label>
+      Email (optional)
+      <input type="email" name="parentEmail" [(ngModel)]="parentEmail">
+    </label>
+
+    <p class="form-error" *ngIf="error">{{ error }}</p>
+
+    <button type="submit" class="btn-primary" [disabled]="submitting">
+      {{ submitting ? 'Submitting…' : 'Submit entry' }}
+    </button>
+  </form>
+
+  <div class="success-message" *ngIf="submitted">
+    <h2>Entry received!</h2>
+    <p>Thank you — we've got your child's entry. We'll reach out to the parent/guardian contact if there's a win.</p>
+  </div>
+</section>
+
+<section class="entries-list">
+  <h2>Recent entries</h2>
+  <p class="section-note">Name and school only — writing entries and contact details stay private.</p>
+
+  @if (recentEntries$ | async; as entries) {
+  @if (entries.length === 0) {
+  <p class="empty-state">No entries yet — be the first to submit!</p>
+  } @else {
+  <ul class="entries-grid">
+    @for (entry of entries; track entry.id) {
+    <li class="entry-chip">
+      <strong>{{ entry.childName }}</strong>
+      <span>{{ entry.school }} · {{ entry.grade }}</span>
+    </li>
+    }
+  </ul>
+  }
+  }
+</section>

@@ -15,7 +15,7 @@ import {
   doc,
   serverTimestamp,
 } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { Observable, combineLatest, map } from 'rxjs';
 
 interface Inquiry {
   id?: string;
@@ -34,6 +34,29 @@ interface GalleryPhoto {
   createdAt: Timestamp;
 }
 
+interface CompetitionEntryPublic {
+  id: string;
+  childName: string;
+  school: string;
+  grade: string;
+  writingTitle: string;
+  writingText: string;
+  createdAt: Timestamp;
+}
+
+interface CompetitionEntryPrivate {
+  id: string;
+  parentName: string;
+  parentPhone: string;
+  parentEmail: string;
+}
+
+interface CompetitionEntry extends CompetitionEntryPublic {
+  parentName?: string;
+  parentPhone?: string;
+  parentEmail?: string;
+}
+
 @Component({
   selector: 'app-admin-dashboard',
   imports: [CommonModule, FormsModule],
@@ -50,6 +73,7 @@ export class AdminDashboard {
 
   inquiries$: Observable<Inquiry[]>;
   photos$: Observable<GalleryPhoto[]>;
+  competitionEntries$: Observable<CompetitionEntry[]>;
 
   selectedFile: File | null = null;
   caption = '';
@@ -64,6 +88,29 @@ export class AdminDashboard {
     const photosRef = collection(this.firestore, 'gallery_photos');
     const photosQuery = query(photosRef, orderBy('createdAt', 'desc'));
     this.photos$ = collectionData(photosQuery, { idField: 'id' }) as Observable<GalleryPhoto[]>;
+
+    const entriesRef = collection(this.firestore, 'competition_entries');
+    const entriesQuery = query(entriesRef, orderBy('createdAt', 'desc'));
+    const publicEntries$ = collectionData(entriesQuery, { idField: 'id' }) as Observable<CompetitionEntryPublic[]>;
+
+    const privateRef = collection(this.firestore, 'competition_entries_private');
+    const privateEntries$ = collectionData(privateRef, { idField: 'id' }) as Observable<CompetitionEntryPrivate[]>;
+
+    // Public (name/school/writing) and private (parent contact) docs share
+    // the same id, written together at submission time. Merge them here so
+    // staff see the full picture; the public competition page only ever
+    // reads the public collection.
+    this.competitionEntries$ = combineLatest([publicEntries$, privateEntries$]).pipe(
+      map(([publicEntries, privateEntries]) => {
+        const privateById = new Map(privateEntries.map((p) => [p.id, p]));
+        return publicEntries.map((entry) => ({
+          ...entry,
+          parentName: privateById.get(entry.id)?.parentName,
+          parentPhone: privateById.get(entry.id)?.parentPhone,
+          parentEmail: privateById.get(entry.id)?.parentEmail,
+        }));
+      })
+    );
   }
 
   onFileSelected(event: Event) {
@@ -119,6 +166,13 @@ export class AdminDashboard {
     const confirmed = confirm('Remove this photo from the gallery?');
     if (!confirmed) return;
     await deleteDoc(doc(this.firestore, 'gallery_photos', photo.id));
+  }
+
+  async deleteCompetitionEntry(entry: CompetitionEntry) {
+    const confirmed = confirm(`Remove ${entry.childName}'s competition entry? This also removes their parent contact info.`);
+    if (!confirmed) return;
+    await deleteDoc(doc(this.firestore, 'competition_entries', entry.id));
+    await deleteDoc(doc(this.firestore, 'competition_entries_private', entry.id));
   }
 
   async logout() {

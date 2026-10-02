@@ -1,0 +1,41 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Admissions inquiries: anyone can submit one (the public Admissions
+    // form writes without signing in), but only signed-in staff can read
+    // the list back (the admin dashboard).
+    match /inquiries/{inquiryId} {
+      allow create: if true;
+      allow read, update, delete: if request.auth != null;
+    }
+
+    // Gallery photos: visible to everyone on the public Gallery/Home
+    // pages. Only signed-in staff (the admin dashboard) can add or
+    // remove photos.
+    match /gallery_photos/{photoId} {
+      allow read: if true;
+      allow create, update, delete: if request.auth != null;
+    }
+
+    // Writing competition — public half: child's name, school, grade,
+    // and the writing entry itself. Anyone can submit one, and the
+    // Writing Competition page reads this collection to show the public
+    // "recent entries" list.
+    match /competition_entries/{entryId} {
+      allow create: if true;
+      allow read: if true;
+      allow update, delete: if request.auth != null;
+    }
+
+    // Writing competition — private half: parent/guardian name, phone,
+    // and email. Anyone can submit one (written alongside the public
+    // entry at submission time), but only signed-in staff can read it
+    // back, so contact details never appear outside the admin dashboard.
+    match /competition_entries_private/{entryId} {
+      allow create: if true;
+      allow read, update, delete: if request.auth != null;
+    }
+  }
+}
