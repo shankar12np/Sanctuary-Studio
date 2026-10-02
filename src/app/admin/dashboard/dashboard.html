@@ -83,6 +83,8 @@
     <h2>Writing competition entries</h2>
   </header>
 
+  @let currentWinner = (latestWinner$ | async);
+
   @if (competitionEntries$ | async; as entries) {
   @if (entries.length === 0) {
   <p class="empty-state">No competition entries yet — they'll show up here as families submit on the Writing Competition page.</p>
@@ -91,7 +93,12 @@
     @for (entry of entries; track entry.id) {
     <div class="inquiry-card">
       <div class="inquiry-top">
-        <h3>{{ entry.childName }}</h3>
+        <h3>
+          {{ entry.childName }}
+          @if (currentWinner?.entryId === entry.id) {
+          <span class="winner-tag">★ Featured winner</span>
+          }
+        </h3>
         <span class="date">{{ entry.createdAt?.toDate() | date:'MMM d, y, h:mm a' }}</span>
       </div>
       <p><strong>School:</strong> {{ entry.school }} &middot; {{ entry.grade }}</p>
@@ -104,7 +111,12 @@
       @if (entry.parentEmail) {
       <p><strong>Email:</strong> {{ entry.parentEmail }}</p>
       }
-      <button class="delete-btn" (click)="deleteCompetitionEntry(entry)">Remove</button>
+      <div class="card-actions">
+        <button class="winner-btn" (click)="markAsWinner(entry)" [disabled]="currentWinner?.entryId === entry.id">
+          {{ currentWinner?.entryId === entry.id ? 'Shown on home page' : 'Mark as latest winner' }}
+        </button>
+        <button class="delete-btn" (click)="deleteCompetitionEntry(entry)">Remove</button>
+      </div>
     </div>
     }
   </div>

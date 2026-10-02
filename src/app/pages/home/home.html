@@ -132,6 +132,23 @@
 
 
 <section class="competition-teaser">
+  @if (latestWinner$ | async; as winner) {
+  <div class="competition-card winner-card">
+    <span class="badge">🏆 Latest winner</span>
+    <h2>{{ winner.childName }}</h2>
+    <p class="winner-meta">{{ winner.school }} &middot; {{ winner.grade }}</p>
+
+    @if (winner.writingTitle) {
+    <p class="winner-title">"{{ winner.writingTitle }}"</p>
+    }
+
+    <blockquote class="winner-excerpt">{{ excerpt(winner.writingText) }}</blockquote>
+
+    <a routerLink="/competition" class="btn-primary">
+      Read the Writing Competition
+    </a>
+  </div>
+  } @else {
   <div class="competition-card">
     <span class="badge">Every 6 months</span>
     <h2>Kids' Writing Competition</h2>
@@ -147,6 +164,7 @@
       Learn how to participate
     </a>
   </div>
+  }
 </section>
 
 
