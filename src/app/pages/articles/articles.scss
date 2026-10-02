@@ -5,7 +5,17 @@
   margin: 0 auto;
 
   h1 { font-size: 32px; margin-bottom: 12px; }
-  p { color: var(--ink-muted); }
+  p { color: var(--ink-muted); margin-bottom: 12px; }
+
+  .enter-link {
+    display: inline-block;
+    color: var(--brand-green);
+    font-weight: 700;
+    font-size: 14px;
+    text-decoration: none;
+
+    &:hover { text-decoration: underline; }
+  }
 }
 
 .empty-state-section {

@@ -1,5 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { Meta } from '@angular/platform-browser';
 import { Firestore, collection, collectionData, orderBy, query, Timestamp } from '@angular/fire/firestore';
 import { Observable, map } from 'rxjs';
@@ -23,7 +24,7 @@ interface RoundGroup {
 
 @Component({
   selector: 'app-articles',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './articles.html',
   styleUrl: './articles.scss',
 })
