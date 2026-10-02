@@ -37,5 +37,13 @@ service cloud.firestore {
       allow create: if true;
       allow read, update, delete: if request.auth != null;
     }
+
+    // Small site-wide settings, currently just the latest competition
+    // winner featured on the home page. Visible to everyone (the home
+    // page reads it without signing in); only staff can set it.
+    match /site_meta/{docId} {
+      allow read: if true;
+      allow create, update, delete: if request.auth != null;
+    }
   }
 }

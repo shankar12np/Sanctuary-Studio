@@ -295,6 +295,28 @@ section h2 {
   }
 
   .btn-primary { background: var(--brand-gold-ink); color: var(--brand-gold); }
+
+  &.winner-card {
+    .winner-meta {
+      margin-bottom: 14px;
+      opacity: 0.85;
+    }
+
+    .winner-title {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 17px;
+      margin-bottom: 10px;
+    }
+
+    .winner-excerpt {
+      margin: 0 0 24px;
+      padding: 0;
+      border: none;
+      font-style: italic;
+      line-height: 1.5;
+    }
+  }
 }
 
 /* ============================================================

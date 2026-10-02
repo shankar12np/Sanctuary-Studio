@@ -13,6 +13,8 @@ import {
   addDoc,
   deleteDoc,
   doc,
+  docData,
+  setDoc,
   serverTimestamp,
 } from '@angular/fire/firestore';
 import { Observable, combineLatest, map } from 'rxjs';
@@ -57,6 +59,16 @@ interface CompetitionEntry extends CompetitionEntryPublic {
   parentEmail?: string;
 }
 
+interface LatestWinner {
+  entryId: string;
+  childName: string;
+  school: string;
+  grade: string;
+  writingTitle: string;
+  writingText: string;
+  announcedAt: Timestamp;
+}
+
 @Component({
   selector: 'app-admin-dashboard',
   imports: [CommonModule, FormsModule],
@@ -74,6 +86,7 @@ export class AdminDashboard {
   inquiries$: Observable<Inquiry[]>;
   photos$: Observable<GalleryPhoto[]>;
   competitionEntries$: Observable<CompetitionEntry[]>;
+  latestWinner$: Observable<LatestWinner | undefined>;
 
   selectedFile: File | null = null;
   caption = '';
@@ -111,6 +124,8 @@ export class AdminDashboard {
         }));
       })
     );
+
+    this.latestWinner$ = docData(doc(this.firestore, 'site_meta', 'latest_winner')) as Observable<LatestWinner | undefined>;
   }
 
   onFileSelected(event: Event) {
@@ -173,6 +188,21 @@ export class AdminDashboard {
     if (!confirmed) return;
     await deleteDoc(doc(this.firestore, 'competition_entries', entry.id));
     await deleteDoc(doc(this.firestore, 'competition_entries_private', entry.id));
+  }
+
+  async markAsWinner(entry: CompetitionEntry) {
+    const confirmed = confirm(`Feature ${entry.childName} as the latest winner on the home page?`);
+    if (!confirmed) return;
+
+    await setDoc(doc(this.firestore, 'site_meta', 'latest_winner'), {
+      entryId: entry.id,
+      childName: entry.childName,
+      school: entry.school,
+      grade: entry.grade,
+      writingTitle: entry.writingTitle,
+      writingText: entry.writingText,
+      announcedAt: serverTimestamp(),
+    });
   }
 
   async logout() {
