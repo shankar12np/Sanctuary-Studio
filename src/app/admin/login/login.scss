@@ -33,13 +33,13 @@
     border-radius: var(--radius-sm);
     background: var(--surface-100);
 
-    &:focus { outline: none; border-color: var(--brand-coral); }
+    &:focus { outline: none; border-color: var(--brand-green); }
   }
 
   .form-error { color: #B84A28; font-size: 14px; margin: 0; }
 
   .btn-primary {
-    background: var(--brand-coral);
+    background: var(--brand-green);
     color: white;
     border: none;
     padding: 12px;

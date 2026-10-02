@@ -11,10 +11,15 @@
 }
 
 .logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   font-family: var(--font-heading);
   font-size: 22px;
-  color: var(--brand-coral);
+  color: var(--brand-green);
   text-decoration: none;
+
+  img { display: block; }
 }
 
 .menu-toggle {
@@ -37,10 +42,10 @@
     font-weight: 600;
     font-size: 14px;
 
-    &.active { color: var(--brand-coral); }
+    &.active { color: var(--brand-green); }
 
     &.cta {
-      background: var(--brand-coral);
+      background: var(--brand-green);
       color: white;
       padding: 8px 16px;
       border-radius: var(--radius-pill);

@@ -85,7 +85,7 @@
   }
 
   button {
-    background: var(--brand-coral);
+    background: var(--brand-green);
     color: white;
     border: none;
     padding: 10px 20px;
@@ -101,7 +101,7 @@
 }
 
 .error-text {
-  color: var(--brand-coral-ink);
+  color: var(--brand-green-ink);
   font-size: 14px;
   margin-bottom: 16px;
 }
@@ -137,7 +137,7 @@
     width: 100%;
     background: none;
     border: none;
-    color: var(--brand-coral-ink);
+    color: var(--brand-green-ink);
     font-size: 13px;
     padding: 8px 10px;
     cursor: pointer;
