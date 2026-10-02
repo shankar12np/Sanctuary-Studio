@@ -13,16 +13,27 @@
   p { font-size: 18px; color: var(--ink-muted); margin-bottom: 32px; }
 }
 
-.hero-logo {
-  display: block;
-  width: 140px;
-  height: auto;
+.hero-greeting {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   margin: 0 auto 20px;
-  padding: 16px;
-  background: #1F3A5C;
-  border-radius: var(--radius-lg);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
-  box-sizing: content-box;
+  padding: 8px 20px;
+  background: var(--surface-0);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+}
+
+.hero-greeting-icon {
+  font-size: 18px;
+}
+
+.hero-greeting-text {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--brand-green);
+  letter-spacing: 0.02em;
 }
 
 .doodle {
@@ -384,10 +395,13 @@ section h2 {
     p { font-size: 15px; margin-bottom: 24px; }
   }
 
-  .hero-logo {
-    width: 104px;
-    padding: 12px;
+  .hero-greeting {
+    padding: 6px 16px;
     margin-bottom: 14px;
+  }
+
+  .hero-greeting-text {
+    font-size: 13px;
   }
 
   .cta-group {
