@@ -183,11 +183,22 @@ export class AdminDashboard {
     await deleteDoc(doc(this.firestore, 'gallery_photos', photo.id));
   }
 
-  async deleteCompetitionEntry(entry: CompetitionEntry) {
-    const confirmed = confirm(`Remove ${entry.childName}'s competition entry? This also removes their parent contact info.`);
+  async deleteCompetitionEntry(entry: CompetitionEntry, currentWinner: LatestWinner | null | undefined) {
+    const isFeaturedWinner = currentWinner?.entryId === entry.id;
+
+    const confirmed = confirm(
+      isFeaturedWinner
+        ? `${entry.childName} is currently featured as the latest winner on the home page. Removing this entry will also clear that spotlight. Continue?`
+        : `Remove ${entry.childName}'s competition entry? This also removes their parent contact info.`
+    );
     if (!confirmed) return;
+
     await deleteDoc(doc(this.firestore, 'competition_entries', entry.id));
     await deleteDoc(doc(this.firestore, 'competition_entries_private', entry.id));
+
+    if (isFeaturedWinner) {
+      await deleteDoc(doc(this.firestore, 'site_meta', 'latest_winner'));
+    }
   }
 
   async markAsWinner(entry: CompetitionEntry) {

@@ -115,7 +115,7 @@
         <button class="winner-btn" (click)="markAsWinner(entry)" [disabled]="currentWinner?.entryId === entry.id">
           {{ currentWinner?.entryId === entry.id ? 'Shown on home page' : 'Mark as latest winner' }}
         </button>
-        <button class="delete-btn" (click)="deleteCompetitionEntry(entry)">Remove</button>
+        <button class="delete-btn" (click)="deleteCompetitionEntry(entry, currentWinner)">Remove</button>
       </div>
     </div>
     }
