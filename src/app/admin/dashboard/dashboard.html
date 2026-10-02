@@ -76,4 +76,38 @@
   </div>
   }
   }
+
+  <hr class="section-divider">
+
+  <header class="dashboard-header">
+    <h2>Writing competition entries</h2>
+  </header>
+
+  @if (competitionEntries$ | async; as entries) {
+  @if (entries.length === 0) {
+  <p class="empty-state">No competition entries yet — they'll show up here as families submit on the Writing Competition page.</p>
+  } @else {
+  <div class="inquiry-list">
+    @for (entry of entries; track entry.id) {
+    <div class="inquiry-card">
+      <div class="inquiry-top">
+        <h3>{{ entry.childName }}</h3>
+        <span class="date">{{ entry.createdAt?.toDate() | date:'MMM d, y, h:mm a' }}</span>
+      </div>
+      <p><strong>School:</strong> {{ entry.school }} &middot; {{ entry.grade }}</p>
+      @if (entry.writingTitle) {
+      <p><strong>Title:</strong> {{ entry.writingTitle }}</p>
+      }
+      <p class="message"><strong>Entry:</strong> {{ entry.writingText }}</p>
+      <p><strong>Parent/guardian:</strong> {{ entry.parentName || '—' }}</p>
+      <p><strong>Phone:</strong> {{ entry.parentPhone || '—' }}</p>
+      @if (entry.parentEmail) {
+      <p><strong>Email:</strong> {{ entry.parentEmail }}</p>
+      }
+      <button class="delete-btn" (click)="deleteCompetitionEntry(entry)">Remove</button>
+    </div>
+    }
+  </div>
+  }
+  }
 </section>

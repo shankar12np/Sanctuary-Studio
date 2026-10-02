@@ -5,6 +5,7 @@ import { Programs } from './pages/programs/programs';
 import { Admissions } from './pages/admissions/admissions';
 import { Gallery } from './pages/gallery/gallery';
 import { Contact } from './pages/contact/contact';
+import { Competition } from './pages/competition/competition';
 import { AdminLogin } from './admin/login/login';
 import { AdminDashboard } from './admin/dashboard/dashboard';
 import { authGuard } from './admin/auth-guard';
@@ -15,6 +16,7 @@ export const routes: Routes = [
   { path: 'programs', component: Programs, title: 'Programs | Sanctuary Studio' },
   { path: 'admissions', component: Admissions, title: 'Admissions | Sanctuary Studio' },
   { path: 'gallery', component: Gallery, title: 'Gallery | Sanctuary Studio' },
+  { path: 'competition', component: Competition, title: "Writing Competition | Sanctuary Studio" },
   { path: 'contact', component: Contact, title: 'Contact | Sanctuary Studio' },
   { path: 'admin', component: AdminLogin, title: 'Admin | Sanctuary Studio' },
   { path: 'admin/dashboard', component: AdminDashboard, canActivate: [authGuard], title: 'Admin Dashboard | Sanctuary Studio' },
