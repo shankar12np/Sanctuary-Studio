@@ -1,0 +1,116 @@
+.page-header {
+  text-align: center;
+  padding: 56px 24px 24px;
+  max-width: 600px;
+  margin: 0 auto;
+
+  h1 { font-size: 32px; margin-bottom: 12px; }
+  p { color: var(--ink-muted); }
+}
+
+.empty-state-section {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 24px;
+  text-align: center;
+}
+
+.empty-state {
+  color: var(--ink-muted);
+}
+
+.round-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 24px 24px;
+}
+
+.round-tab {
+  background: var(--surface-0);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  padding: 8px 18px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  .count {
+    background: var(--border);
+    color: var(--ink-muted);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 1px 8px;
+    border-radius: var(--radius-pill);
+  }
+
+  &.active {
+    background: var(--brand-green);
+    border-color: var(--brand-green);
+    color: white;
+
+    .count {
+      background: rgba(255, 255, 255, 0.25);
+      color: white;
+    }
+  }
+}
+
+.articles-list {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 0 24px 56px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.article-card {
+  background: var(--surface-0);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+
+  .article-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 4px;
+
+    h2 { font-size: 18px; margin: 0; }
+    .date { font-size: 13px; color: var(--ink-muted); }
+  }
+
+  .article-meta {
+    font-size: 13px;
+    color: var(--ink-muted);
+    margin-bottom: 12px;
+  }
+
+  .article-title {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--brand-green);
+    margin-bottom: 10px;
+  }
+
+  .article-text {
+    white-space: pre-line;
+    line-height: 1.6;
+    color: var(--ink);
+    margin: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-header { padding: 48px 16px 20px; h1 { font-size: 26px; } }
+  .round-tabs, .articles-list { padding-left: 16px; padding-right: 16px; }
+}

@@ -33,9 +33,11 @@
         essay on any topic.</li>
       <li>A parent or guardian must submit the entry on the child's behalf,
         with contact details so we can reach you if your child wins.</li>
-      <li>Entrant's name and school are shown publicly on this page once
-        submitted. Contact details are kept private and only visible to
-        Sanctuary Studio staff.</li>
+      <li>Entrant's name, school, and the full entry are published on our
+        <a routerLink="/articles">Writing Archive</a> once submitted — a
+        space for every child's writing to be read, not just the winner's.
+        Parent/guardian contact details are always kept private and only
+        visible to Sanctuary Studio staff.</li>
       <li>Winners are announced every 6 months and contacted directly.</li>
     </ul>
   </div>
@@ -107,7 +109,9 @@
 
 <section class="entries-list">
   <h2>Recent entries</h2>
-  <p class="section-note">Name and school only — writing entries and contact details stay private.</p>
+  <p class="section-note">
+    Name and school shown here — <a routerLink="/articles">read every full entry in our Writing Archive →</a>
+  </p>
 
   @if (recentEntries$ | async; as entries) {
   @if (entries.length === 0) {

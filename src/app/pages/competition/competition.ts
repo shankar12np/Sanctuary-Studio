@@ -1,6 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 import { Meta } from '@angular/platform-browser';
 import {
   Firestore,
@@ -37,7 +38,7 @@ interface LatestWinner {
 
 @Component({
   selector: 'app-competition',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './competition.html',
   styleUrl: './competition.scss',
 })
