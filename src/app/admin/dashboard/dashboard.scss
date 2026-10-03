@@ -86,7 +86,7 @@
   display: inline-block;
   background: none;
   border: none;
-  color: var(--brand-green-ink);
+  color: #B84A28;
   font-size: 13px;
   padding: 8px 0;
   cursor: pointer;
@@ -156,7 +156,7 @@
 }
 
 .error-text {
-  color: var(--brand-green-ink);
+  color: #B84A28;
   font-size: 14px;
   margin-bottom: 16px;
 }
@@ -191,5 +191,47 @@
     display: block;
     width: 100%;
     padding: 8px 10px;
+  }
+}
+
+.section-hint {
+  color: var(--ink-muted);
+  font-size: 13px;
+  margin-bottom: 16px;
+}
+
+.program-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  background: var(--surface-0);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  margin-bottom: 20px;
+
+  label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  input, textarea {
+    font-family: var(--font-sans);
+    font-size: 15px;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--surface-100);
+    color: var(--ink);
+    resize: vertical;
+
+    &:focus {
+      outline: none;
+      border-color: var(--brand-green);
+    }
   }
 }

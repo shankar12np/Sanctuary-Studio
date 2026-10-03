@@ -4,38 +4,28 @@
 </section>
 
 <section class="programs-grid">
+  @if (programs$ | async; as programs) {
+  @if (programs.length === 0) {
+  <p class="empty-state">Programs are being updated — check back soon, or get in touch and we'll walk you through what's offered.</p>
+  } @else {
+  @for (program of programs; track program.id) {
   <article class="program-card">
-    <span class="badge">Ages 4–5</span>
-    <h2>Kindergarten</h2>
-    <p>A gentle, play-based introduction to letters, numbers, and social skills. Small group sizes so every child gets attention.</p>
+    <span class="badge">{{ program.badge }}</span>
+    <h2>{{ program.title }}</h2>
+    <p>{{ program.description }}</p>
+    @if (program.bullets && program.bullets.length > 0) {
     <ul>
-      <li>Half-day and full-day options</li>
-      <li>Low student-to-teacher ratio</li>
-      <li>Focus on early literacy and motor skills</li>
+      @for (bullet of program.bullets; track bullet) {
+      <li>{{ bullet }}</li>
+      }
     </ul>
+    }
   </article>
-
-  <article class="program-card">
-    <span class="badge">Ages 6–10</span>
-    <h2>Lower &amp; Upper Primary</h2>
-    <p>A structured curriculum covering core subjects, with room for creativity through art, music, and group projects.</p>
-    <ul>
-      <li>English, math, science, social studies</li>
-      <li>Weekly art and activity sessions</li>
-      <li>Regular progress updates for parents</li>
-    </ul>
-  </article>
-
-  <article class="program-card">
-    <span class="badge">Ages 11–13</span>
-    <h2>Middle School</h2>
-    <p>Preparing students for greater independence — deeper subject material, study skills, and early guidance on interests and strengths.</p>
-    <ul>
-      <li>Subject specialist teachers</li>
-      <li>Study skills and time management</li>
-      <li>Small electives based on interest</li>
-    </ul>
-  </article>
+  }
+  }
+  } @else {
+  <p class="empty-state">Loading programs…</p>
+  }
 </section>
 
 <section class="cta-band">

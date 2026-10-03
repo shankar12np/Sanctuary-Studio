@@ -15,9 +15,11 @@ import {
   doc,
   docData,
   setDoc,
+  updateDoc,
   serverTimestamp,
 } from '@angular/fire/firestore';
 import { Observable, combineLatest, map } from 'rxjs';
+import { Program } from '../../shared/program.model';
 
 interface Inquiry {
   id?: string;
@@ -87,11 +89,22 @@ export class AdminDashboard {
   photos$: Observable<GalleryPhoto[]>;
   competitionEntries$: Observable<CompetitionEntry[]>;
   latestWinner$: Observable<LatestWinner | undefined>;
+  programs$: Observable<Program[]>;
 
   selectedFile: File | null = null;
   caption = '';
   uploading = false;
   uploadError = '';
+
+  // Programs admin form — same fields used for both adding a new program
+  // and editing an existing one (editingProgramId tracks which).
+  editingProgramId: string | null = null;
+  programBadge = '';
+  programTitle = '';
+  programDescription = '';
+  programBullets = '';
+  programSaving = false;
+  programError = '';
 
   constructor() {
     const inquiriesRef = collection(this.firestore, 'inquiries');
@@ -126,6 +139,10 @@ export class AdminDashboard {
     );
 
     this.latestWinner$ = docData(doc(this.firestore, 'site_meta', 'latest_winner')) as Observable<LatestWinner | undefined>;
+
+    const programsRef = collection(this.firestore, 'programs');
+    const programsQuery = query(programsRef, orderBy('order', 'asc'));
+    this.programs$ = collectionData(programsQuery, { idField: 'id' }) as Observable<Program[]>;
   }
 
   onFileSelected(event: Event) {
@@ -214,6 +231,92 @@ export class AdminDashboard {
       writingText: entry.writingText,
       announcedAt: serverTimestamp(),
     });
+  }
+
+  editProgram(program: Program) {
+    this.editingProgramId = program.id ?? null;
+    this.programBadge = program.badge;
+    this.programTitle = program.title;
+    this.programDescription = program.description;
+    this.programBullets = (program.bullets || []).join('\n');
+    this.programError = '';
+  }
+
+  cancelEditProgram() {
+    this.editingProgramId = null;
+    this.programBadge = '';
+    this.programTitle = '';
+    this.programDescription = '';
+    this.programBullets = '';
+    this.programError = '';
+  }
+
+  async saveProgram(existingPrograms: Program[]) {
+    this.programError = '';
+
+    if (!this.programBadge.trim() || !this.programTitle.trim() || !this.programDescription.trim()) {
+      this.programError = 'Please fill in the badge, title, and description.';
+      return;
+    }
+
+    this.programSaving = true;
+
+    const bullets = this.programBullets
+      .split('\n')
+      .map((line) => line.trim())
+      .filter((line) => line.length > 0);
+
+    try {
+      if (this.editingProgramId) {
+        await updateDoc(doc(this.firestore, 'programs', this.editingProgramId), {
+          badge: this.programBadge,
+          title: this.programTitle,
+          description: this.programDescription,
+          bullets,
+        });
+      } else {
+        const nextOrder = existingPrograms.length > 0
+          ? Math.max(...existingPrograms.map((p) => p.order ?? 0)) + 1
+          : 0;
+
+        await addDoc(collection(this.firestore, 'programs'), {
+          badge: this.programBadge,
+          title: this.programTitle,
+          description: this.programDescription,
+          bullets,
+          order: nextOrder,
+          createdAt: serverTimestamp(),
+        });
+      }
+
+      this.cancelEditProgram();
+    } catch {
+      this.programError = 'Something went wrong saving that program. Please try again.';
+    } finally {
+      this.programSaving = false;
+    }
+  }
+
+  async deleteProgram(program: Program) {
+    if (!program.id) return;
+    const confirmed = confirm(`Remove "${program.title}" from the Programs page?`);
+    if (!confirmed) return;
+    await deleteDoc(doc(this.firestore, 'programs', program.id));
+    if (this.editingProgramId === program.id) {
+      this.cancelEditProgram();
+    }
+  }
+
+  async moveProgram(program: Program, direction: 'up' | 'down', programs: Program[]) {
+    const index = programs.findIndex((p) => p.id === program.id);
+    const swapIndex = direction === 'up' ? index - 1 : index + 1;
+    if (index === -1 || swapIndex < 0 || swapIndex >= programs.length) return;
+
+    const neighbor = programs[swapIndex];
+    if (!program.id || !neighbor.id) return;
+
+    await updateDoc(doc(this.firestore, 'programs', program.id), { order: neighbor.order });
+    await updateDoc(doc(this.firestore, 'programs', neighbor.id), { order: program.order });
   }
 
   async logout() {
