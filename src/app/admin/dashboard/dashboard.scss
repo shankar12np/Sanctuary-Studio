@@ -37,7 +37,7 @@
 .inquiry-card {
   background: var(--surface-0);
   border: 1px solid var(--border);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
   padding: 20px;
 
   .inquiry-top {
@@ -170,7 +170,7 @@
 .photo-card {
   background: var(--surface-0);
   border: 1px solid var(--border);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
   overflow: hidden;
 
   img {
