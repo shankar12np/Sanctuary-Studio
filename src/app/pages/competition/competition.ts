@@ -17,6 +17,7 @@ import {
   Timestamp,
 } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
+import { looksLikeSpam, isValidPhone } from '../../shared/spam-guard';
 
 interface PublicEntry {
   id?: string;
@@ -57,10 +58,14 @@ export class Competition implements OnInit {
   parentName = '';
   parentPhone = '';
   parentEmail = '';
+  honeypot = '';
 
   submitted = false;
   submitting = false;
   error = '';
+
+  // Used for the "submitted too fast" spam check below.
+  private readonly formRenderedAt = Date.now();
 
   constructor() {
     const entriesRef = collection(this.firestore, 'competition_entries');
@@ -80,6 +85,13 @@ export class Competition implements OnInit {
   async onSubmit() {
     this.error = '';
 
+    if (looksLikeSpam(this.honeypot, this.formRenderedAt)) {
+      // Quietly treat this as a success without writing anything, rather
+      // than showing an error that would tip off a bot that it was caught.
+      this.submitted = true;
+      return;
+    }
+
     if (!this.childName.trim() || !this.school.trim() || !this.grade.trim() || !this.writingText.trim()) {
       this.error = "Please fill in your child's name, school, grade, and the writing entry.";
       return;
@@ -87,6 +99,11 @@ export class Competition implements OnInit {
 
     if (!this.parentName.trim() || !this.parentPhone.trim()) {
       this.error = "Please add a parent/guardian name and phone number so we can reach you if your child wins.";
+      return;
+    }
+
+    if (!isValidPhone(this.parentPhone)) {
+      this.error = 'Please enter a valid phone number for the parent/guardian.';
       return;
     }
 

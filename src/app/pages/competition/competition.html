@@ -45,6 +45,11 @@
   <form class="entry-form" (ngSubmit)="onSubmit()" *ngIf="!submitted">
     <h2>Submit an entry</h2>
 
+    <label class="hp-field" aria-hidden="true">
+      Leave this field blank
+      <input type="text" name="website" tabindex="-1" autocomplete="off" [(ngModel)]="honeypot">
+    </label>
+
     <label>
       Child's name
       <input type="text" name="childName" [(ngModel)]="childName" required>
