@@ -75,55 +75,121 @@
 .btn-secondary { background: transparent; color: var(--brand-green); border: 2px solid var(--brand-green); }
 
 /* ============================================================
-   MASCOT ANIMATION
+   WALKING KIDS ANIMATION
    ============================================================ */
-.mascot-track {
+.kids-walking {
   position: relative;
-  height: 110px;
-  max-width: 600px;
-  margin: 40px auto 0;
+  height: 150px;
+  max-width: 1100px;
+  margin: 35px auto 0;
   overflow: hidden;
+  pointer-events: none;
 }
 
-.mascot {
+.walking-kid {
   position: absolute;
   bottom: 0;
-  width: 70px;
-  height: 88px;
+  width: 95px;
+  height: auto;
+
+  will-change: left, transform;
+
+  animation-name: kid-walk;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
 }
 
-.mascot-1 {
-  animation: walk-across 9s linear infinite alternate;
+/* Different starting positions and speeds */
+.kid-1 {
+  animation-duration: 14s;
+  animation-delay: -1s;
 }
 
-.mascot-2 {
-  width: 56px;
-  height: 70px;
-  animation: walk-across-2 7s linear infinite alternate;
-  animation-delay: 0.8s;
+.kid-2 {
+  animation-duration: 17s;
+  animation-delay: -6s;
+  width: 90px;
 }
 
-@keyframes walk-across {
-  from { left: 0; }
-  to { left: calc(100% - 70px); }
+.kid-3 {
+  animation-duration: 15s;
+  animation-delay: -9s;
+  width: 92px;
 }
 
-@keyframes walk-across-2 {
-  from { left: 40px; }
-  to { left: calc(100% - 120px); }
+.kid-4 {
+  animation-duration: 19s;
+  animation-delay: -14s;
+  width: 98px;
 }
 
-.mascot-leg {
-  transform-origin: center 78px;
-  animation: leg-swing 0.5s ease-in-out infinite alternate;
+/* Walk from left → right */
+@keyframes kid-walk {
+  0% {
+    left: -120px;
+    transform: translateY(0) rotate(-2deg);
+  }
+
+  10% {
+    transform: translateY(-5px) rotate(2deg);
+  }
+
+  20% {
+    transform: translateY(0) rotate(-2deg);
+  }
+
+  30% {
+    transform: translateY(-5px) rotate(2deg);
+  }
+
+  40% {
+    transform: translateY(0) rotate(-2deg);
+  }
+
+  50% {
+    transform: translateY(-5px) rotate(2deg);
+  }
+
+  60% {
+    transform: translateY(0) rotate(-2deg);
+  }
+
+  70% {
+    transform: translateY(-5px) rotate(2deg);
+  }
+
+  80% {
+    transform: translateY(0) rotate(-2deg);
+  }
+
+  100% {
+    left: calc(100% + 120px);
+    transform: translateY(-3px) rotate(2deg);
+  }
 }
 
-.mascot-leg-left { animation-delay: 0s; }
-.mascot-leg-right { animation-delay: 0.25s; }
+@media (max-width: 480px) {
 
-@keyframes leg-swing {
-  from { transform: rotate(-15deg); }
-  to { transform: rotate(15deg); }
+  .kids-walking {
+    height: 105px;
+    margin-top: 20px;
+  }
+
+  .walking-kid {
+    width: 65px;
+  }
+
+  .kid-2 {
+    width: 62px;
+  }
+
+  .kid-3 {
+    width: 64px;
+  }
+
+  .kid-4 {
+    width: 68px;
+  }
 }
 
 /* ============================================================
@@ -367,7 +433,7 @@ section h2 {
    REDUCED MOTION
    ============================================================ */
 @media (prefers-reduced-motion: reduce) {
-  .doodle, .mascot, .mascot-leg {
+  .doodle, .walking-kid {
     animation: none;
   }
 }
@@ -427,16 +493,6 @@ section h2 {
   }
 
   .doodle-cloud { font-size: 22px; }
-
-  .mascot-track {
-    height: 80px;
-    margin-top: 24px;
-  }
-
-  .mascot {
-    width: 50px;
-    height: 64px;
-  }
 
   .why-us, .programs-teaser, .gallery-teaser, .testimonial, .cta-band {
     padding-left: 16px;
