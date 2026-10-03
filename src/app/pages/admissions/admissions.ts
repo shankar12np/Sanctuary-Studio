@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Firestore, collection, addDoc, serverTimestamp } from '@angular/fire/firestore';
 import { Meta } from '@angular/platform-browser';
 import emailjs from '@emailjs/browser';
+import { looksLikeSpam, isValidPhone } from '../../shared/spam-guard';
 
 @Component({
   selector: 'app-admissions',
@@ -24,9 +25,13 @@ export class Admissions implements OnInit {
   phone = '';
   email = '';
   message = '';
+  honeypot = '';
   submitted = false;
   error = '';
   submitting = false;
+
+  // Used for the "submitted too fast" spam check below.
+  private readonly formRenderedAt = Date.now();
 
   ngOnInit() {
     this.meta.updateTag({
@@ -38,8 +43,20 @@ export class Admissions implements OnInit {
   async onSubmit() {
     this.error = '';
 
+    if (looksLikeSpam(this.honeypot, this.formRenderedAt)) {
+      // Quietly treat this as a success without writing anything, rather
+      // than showing an error that would tip off a bot that it was caught.
+      this.submitted = true;
+      return;
+    }
+
     if (!this.name.trim() || !this.phone.trim()) {
       this.error = 'Please enter your name and a phone number so we can reach you.';
+      return;
+    }
+
+    if (!isValidPhone(this.phone)) {
+      this.error = 'Please enter a valid phone number.';
       return;
     }
 

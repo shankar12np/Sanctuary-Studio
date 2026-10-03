@@ -13,6 +13,11 @@
   </div>
 
   <form class="inquiry-form" (ngSubmit)="onSubmit()" *ngIf="!submitted">
+    <label class="hp-field" aria-hidden="true">
+      Leave this field blank
+      <input type="text" name="website" tabindex="-1" autocomplete="off" [(ngModel)]="honeypot">
+    </label>
+
     <label>
       Your name
       <input type="text" name="name" [(ngModel)]="name" required>

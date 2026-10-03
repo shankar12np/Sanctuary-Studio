@@ -34,3 +34,17 @@ h1, h2, h3 {
   font-weight: 600;
   margin: 0;
 }
+
+/* ============================================================
+   HONEYPOT FIELD (spam protection on public forms)
+   Visually hidden and skipped in the tab order, so real visitors never
+   see or reach it — only bots that auto-fill every field find it.
+   ============================================================ */
+.hp-field {
+  position: absolute;
+  left: -9999px;
+  top: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
