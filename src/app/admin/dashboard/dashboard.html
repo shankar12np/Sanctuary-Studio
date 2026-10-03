@@ -122,4 +122,80 @@
   </div>
   }
   }
+
+  <hr class="section-divider">
+
+  <header class="dashboard-header">
+    <h2>Programs</h2>
+  </header>
+
+  <p class="section-hint">
+    These are the programs shown on the Programs page and the home page teaser.
+    Add a new one, or click "Edit" on an existing program to change it — no code
+    changes needed.
+  </p>
+
+  @if (programs$ | async; as programs) {
+
+  <form class="program-form" (ngSubmit)="saveProgram(programs)">
+    <label>
+      Badge
+      <input type="text" [(ngModel)]="programBadge" name="programBadge" placeholder="e.g. Ages 4–5">
+    </label>
+
+    <label>
+      Title
+      <input type="text" [(ngModel)]="programTitle" name="programTitle" placeholder="e.g. Kindergarten">
+    </label>
+
+    <label>
+      Description
+      <textarea [(ngModel)]="programDescription" name="programDescription" rows="2" placeholder="A short summary shown on both the Programs page and the home page."></textarea>
+    </label>
+
+    <label>
+      Highlights (one per line, optional)
+      <textarea [(ngModel)]="programBullets" name="programBullets" rows="3" placeholder="Half-day and full-day options&#10;Low student-to-teacher ratio"></textarea>
+    </label>
+
+    @if (programError) {
+    <p class="error-text">{{ programError }}</p>
+    }
+
+    <div class="card-actions">
+      <button type="submit" class="winner-btn" [disabled]="programSaving">
+        {{ programSaving ? 'Saving…' : (editingProgramId ? 'Save changes' : 'Add program') }}
+      </button>
+
+      @if (editingProgramId) {
+      <button type="button" class="delete-btn" (click)="cancelEditProgram()">Cancel editing</button>
+      }
+    </div>
+  </form>
+
+  @if (programs.length === 0) {
+  <p class="empty-state">No programs yet — add one above to start showing them on the site.</p>
+  } @else {
+  <div class="inquiry-list">
+    @for (program of programs; track program.id; let i = $index) {
+    <div class="inquiry-card">
+      <div class="inquiry-top">
+        <h3>{{ program.title }}</h3>
+        <span class="date">{{ program.badge }}</span>
+      </div>
+      <p>{{ program.description }}</p>
+      @if (program.bullets && program.bullets.length > 0) {
+      <p class="message"><strong>Highlights:</strong> {{ program.bullets.join(' · ') }}</p>
+      }
+      <div class="card-actions">
+        <button class="winner-btn" (click)="moveProgram(program, 'up', programs)" [disabled]="i === 0">Move up</button>
+        <button class="winner-btn" (click)="moveProgram(program, 'down', programs)" [disabled]="i === programs.length - 1">Move down</button>
+        <button class="winner-btn" (click)="editProgram(program)">Edit</button>
+        <button class="delete-btn" (click)="deleteProgram(program)">Remove</button>
+      </div>
+    </div>
+    }
+  </div>
+  }
+  }
 </section>

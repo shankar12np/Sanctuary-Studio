@@ -4,6 +4,7 @@ import { RouterLink } from '@angular/router';
 import { Meta } from '@angular/platform-browser';
 import { Firestore, collection, collectionData, doc, docData, orderBy, query, limit, Timestamp } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
+import { Program } from '../../shared/program.model';
 
 interface LivePhoto {
   id?: string;
@@ -34,6 +35,7 @@ export class Home implements OnInit {
 
   recentPhotos$: Observable<LivePhoto[]>;
   latestWinner$: Observable<LatestWinner | undefined>;
+  featuredPrograms$: Observable<Program[]>;
 
   constructor() {
     const photosRef = collection(this.firestore, 'gallery_photos');
@@ -41,6 +43,10 @@ export class Home implements OnInit {
     this.recentPhotos$ = collectionData(photosQuery, { idField: 'id' }) as Observable<LivePhoto[]>;
 
     this.latestWinner$ = docData(doc(this.firestore, 'site_meta', 'latest_winner')) as Observable<LatestWinner | undefined>;
+
+    const programsRef = collection(this.firestore, 'programs');
+    const programsQuery = query(programsRef, orderBy('order', 'asc'), limit(3));
+    this.featuredPrograms$ = collectionData(programsQuery, { idField: 'id' }) as Observable<Program[]>;
   }
 
   excerpt(text: string, maxLength = 220): string {

@@ -100,34 +100,18 @@
   <h2>Programs for every age</h2>
 
   <div class="teaser-grid">
-
+    @if (featuredPrograms$ | async; as featuredPrograms) {
+    @for (program of featuredPrograms; track program.id) {
     <a routerLink="/programs" class="teaser-card">
-      <span class="badge">Ages 4–5</span>
-      <h3>Kindergarten</h3>
+      <span class="badge">{{ program.badge }}</span>
+      <h3>{{ program.title }}</h3>
 
       <p>
-        Play-based learning, gentle introduction to letters and numbers.
+        {{ program.description }}
       </p>
     </a>
-
-    <a routerLink="/programs" class="teaser-card">
-      <span class="badge">Ages 6–10</span>
-      <h3>Primary</h3>
-
-      <p>
-        Core subjects, creativity, and steady academic progress.
-      </p>
-    </a>
-
-    <a routerLink="/programs" class="teaser-card">
-      <span class="badge">Ages 11–13</span>
-      <h3>Middle School</h3>
-
-      <p>
-        Deeper subjects, study skills, growing independence.
-      </p>
-    </a>
-
+    }
+    }
   </div>
 
   <a routerLink="/programs" class="see-all">
