@@ -75,112 +75,79 @@
 .btn-secondary { background: transparent; color: var(--brand-green); border: 2px solid var(--brand-green); }
 
 /* ============================================================
-   WALKING KIDS ANIMATION
+   MASCOT ANIMATION
    ============================================================ */
-.kids-walking {
+.mascot-track {
   position: relative;
-  height: 150px;
-  max-width: 1100px;
-  margin: 35px auto 0;
+  height: 110px;
+  max-width: 640px;
+  margin: 40px auto 0;
   overflow: hidden;
-  pointer-events: none;
 }
 
-.walking-kid {
+.mascot {
   position: absolute;
   bottom: 0;
-  width: 95px;
-  height: auto;
-
-  will-change: left, transform;
-
-  animation-name: kid-walk;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
+  width: 70px;
+  height: 88px;
 }
 
-/* Different starting positions and speeds */
-.kid-1 {
-  animation-duration: 14s;
-  animation-delay: -1s;
+.mascot-1 {
+  animation: walk-across 9s linear infinite alternate;
 }
 
-.kid-2 {
-  animation-duration: 17s;
-  animation-delay: -6s;
-  width: 90px;
+.mascot-2 {
+  width: 56px;
+  height: 70px;
+  animation: walk-across-2 7s linear infinite alternate;
+  animation-delay: 0.8s;
 }
 
-.kid-3 {
-  animation-duration: 15s;
-  animation-delay: -9s;
-  width: 92px;
+.mascot-3 {
+  width: 62px;
+  height: 78px;
+  animation: walk-across-3 11s linear infinite alternate;
+  animation-delay: 0.4s;
 }
 
-.kid-4 {
-  animation-duration: 19s;
-  animation-delay: -14s;
-  width: 98px;
+.mascot-4 {
+  width: 50px;
+  height: 63px;
+  animation: walk-across-4 8s linear infinite alternate;
+  animation-delay: 1.2s;
 }
 
-/* Walk from left → right */
-@keyframes kid-walk {
-  0% {
-    left: -120px;
-    transform: translateY(0) rotate(-2deg);
-  }
-
-  10% {
-    transform: translateY(-5px) rotate(2deg);
-  }
-
-  20% {
-    transform: translateY(0) rotate(-2deg);
-  }
-
-  30% {
-    transform: translateY(-5px) rotate(2deg);
-  }
-
-  40% {
-    transform: translateY(0) rotate(-2deg);
-  }
-
-  50% {
-    transform: translateY(-5px) rotate(2deg);
-  }
-
-  60% {
-    transform: translateY(0) rotate(-2deg);
-  }
-
-  70% {
-    transform: translateY(-5px) rotate(2deg);
-  }
-
-  80% {
-    transform: translateY(0) rotate(-2deg);
-  }
-
-  100% {
-    left: calc(100% + 120px);
-    transform: translateY(-3px) rotate(2deg);
-  }
+@keyframes walk-across {
+  from { left: 0; }
+  to { left: calc(100% - 70px); }
 }
 
-@media (max-width: 480px) {
-  .kids-walking {
-    height: 105px;
-    margin-top: 20px;
-  }
+@keyframes walk-across-2 {
+  from { left: 40px; }
+  to { left: calc(100% - 120px); }
+}
 
-  .walking-kid {
-    width: 65px;
-  }
+@keyframes walk-across-3 {
+  from { left: calc(100% - 62px); }
+  to { left: 20px; }
+}
 
-  .kid-2 { width: 62px; }
-  .kid-3 { width: 64px; }
-  .kid-4 { width: 68px; }
+@keyframes walk-across-4 {
+  from { left: calc(100% - 140px); }
+  to { left: 80px; }
+}
+
+.mascot-leg {
+  transform-origin: center 78px;
+  animation: leg-swing 0.5s ease-in-out infinite alternate;
+}
+
+.mascot-leg-left { animation-delay: 0s; }
+.mascot-leg-right { animation-delay: 0.25s; }
+
+@keyframes leg-swing {
+  from { transform: rotate(-15deg); }
+  to { transform: rotate(15deg); }
 }
 
 /* ============================================================
@@ -424,7 +391,7 @@ section h2 {
    REDUCED MOTION
    ============================================================ */
 @media (prefers-reduced-motion: reduce) {
-  .doodle, .walking-kid {
+  .doodle, .mascot, .mascot-leg {
     animation: none;
   }
 }
@@ -484,6 +451,16 @@ section h2 {
   }
 
   .doodle-cloud { font-size: 22px; }
+
+  .mascot-track {
+    height: 80px;
+    margin-top: 24px;
+  }
+
+  .mascot { width: 50px; height: 64px; }
+  .mascot-2 { width: 42px; height: 53px; }
+  .mascot-3 { width: 46px; height: 58px; }
+  .mascot-4 { width: 38px; height: 48px; }
 
   .why-us, .programs-teaser, .gallery-teaser, .testimonial, .cta-band {
     padding-left: 16px;
